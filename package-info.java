@@ -5,4 +5,4 @@
  * @author camer
  *
  */
-package cm.itac.Medecine.ManagedBean;
+package cm.itac.Medecine.jsf.bean;
