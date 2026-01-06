@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<meta charset="utf-8" />
+		<title>Admin</title>
+		<style type="text/css">
+        #footer{
+			  background-color: #DCDCDC;
+			  color: black;
+			  position:fixed;
+			  width: 100%;
+			  bottom: 0;
+			  text-align:center;
+			  height: 1.5em;
+			  font-weight: bold;
+		}
+	</style>
+	</head>
+	<body>
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div style="margin-top:60px" class="container">
+		
+			<fieldset>
+				<legend>Administration</legend>
+				<div class="col-md-4" id="user">
+					<a href="utilisateur.xhtml"><img src="images/user.jpg" class="img-thumbnail img-responsive" /></a>
+					<a href="utilisateur.xhtml"><p class="btn btn-primary">Ajouter un utilisateur</p></a> 
+				</div>
+				<div class="col-md-4" id="user">
+					<a href="Type_Examen.xhtml"><img src="images/type.jpg" class="img-thumbnail img-responsive" /></a>
+					<a href="Type_Examen.xhtml"><p class="btn btn-primary">Gestion des types d'examen</p></a> 
+				</div>
+			</fieldset>
+		</div>
+		<div id="footer">
+	          Copyright © 2019 I.T. Africa Consulting. All Rights Reserved. I.T. Africa Consulting
+        </div>
+	</body>
+</html>

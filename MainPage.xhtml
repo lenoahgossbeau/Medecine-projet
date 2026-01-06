@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+<!-- 		<link rel="stylesheet" href="css/ecommerce.css" /> -->
+		<meta charset="utf-8" />
+		<title>Page d'acceuil</title>
+	</head>
+	<body>
+		<h:form id="menuForm">
+  
+                        <ui:include src ="Header.xhtml"  />
+   		</h:form>
+		
+		<div style="margin-top:60px" class="container">
+			<img alt="" src="image/red.jpg" />
+			<fieldset>
+				<legend>Bienvenue sur E-medecine</legend>
+				
+				<p:panel rendered="#{userManagedBean.accueil}">
+					<div class="col-md-6">
+						<a href="Nouveau_patient.xhtml" ><img src="images/nouveaupatient.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="Nouveau_patient.xhtml"><p class="btn btn-primary">Ajouter un patient</p></a> 
+					</div>
+				</p:panel>
+				
+				<p:panel rendered="#{userManagedBean.medecin}">
+					<div class="col-md-4">
+						<a href="patient.xhtml" ><img src="images/patient.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="patient.xhtml"><p class="btn btn-primary">Consulter un patient</p></a> 
+					</div>
+					
+					<div class="col-md-4" >
+						<a href="Examen_patient.xhtml" ><img src="images/examen.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="Examen_patient.xhtml"><p class="btn btn-primary" >Créer un examen</p></a> 
+					</div>
+					
+					<div class="col-md-4" >
+						<a href="Liste_Resultats.xhtml" ><img src="images/resultatsList.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="Liste_Resultats.xhtml"><p class="btn btn-primary" >Consulter les resultats</p></a> 
+					</div>
+				</p:panel>
+		
+				<p:panel rendered="#{userManagedBean.laboratoire}">
+					<div class="col-md-6" >
+						<a href="Liste_Examen.xhtml" ><img src="images/examens.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="Liste_Examen.xhtml"><p class="btn btn-primary" >Examens</p></a> 
+					</div>
+					
+					<div class="col-md-6" >
+						<a href="Resultats.xhtml" ><img src="images/resultats.jpg" class="img-thumbnail img-responsive" /></a>
+						<a href="Resultats.xhtml"><p class="btn btn-primary" >Ajouter un resultat</p></a> 
+					</div>
+				</p:panel>
+			</fieldset>
+		</div>
+	</body>
+</html>

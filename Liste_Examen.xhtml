@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head>
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+   <!--  	<f:loadBundle basename=" cm.itac.medecine.bundle.messages_fr" var="msg"/> -->
+      <title>Liste d'examens</title> 
+   </h:head> 
+   <h:body> 
+   		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-top:60px">
+			<h:form id="messages">
+				<p:growl id="mgs" showDetail="true" />
+				<p:fieldset legend="Liste des examens enregistrées">
+			 		<p:dataTable selectionMode="single" selection="#{examen_patientManagedBeanList.selectedExamen}" rowKey="#{examen_patient.id}"
+			 		 var="examen_patient" value="#{examen_patientManagedBeanList.examenList}">
+			 		 <p:ajax event="rowSelect" listener="#{examen_patientManagedBeanList.onRowSelect}" update=":messages" />
+						<p:column headerText="Id de l'examen">
+							<h:outputText value="#{examen_patient.id}" />
+			       		 </p:column>
+			       		 <p:column headerText="Prénom du patient">
+				            <h:outputText value="#{examen_patient.patient.prenom}" />
+				        </p:column>
+				        <p:column headerText="Description de l'examen">
+				            <h:outputText value="#{examen_patient.description}" />
+				        </p:column>
+				        <p:column headerText="Type d'examen">
+				            <h:outputText value="#{examen_patient.type}" />
+				        </p:column>
+				        <p:column headerText="Date de l'examen">
+				            <h:outputText value="#{examen_patient.date_examen}" />
+				        </p:column>
+				        <p:column headerText="Statut">
+				            <h:outputText value="#{examen_patient.statut}" />
+				        </p:column>
+				         <p:column>
+				        <p:commandButton action="#{examen_patientManagedBeanList.detail(examen_patient)}" value="Details" />
+				        </p:column>
+				        <p:column>
+				        <p:commandButton action="#{examen_patientManagedBeanList.statut(examen_patient)}" value="En cours" />
+				        </p:column>
+				        <p:column>
+				        <p:commandButton action="#{examen_patientManagedBeanList.resultats(examen_patient)}" value="Resultats" />
+				        </p:column> 
+				    </p:dataTable>
+				</p:fieldset>
+			</h:form>
+		</div>
+	</h:body>
+</html>

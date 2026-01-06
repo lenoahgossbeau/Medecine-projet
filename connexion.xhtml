@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head> 
+        <meta charset ="utf-8" />
+        <title><ui:define name="title">E-Medecine- Login</ui:define></title>
+        <h:outputStylesheet library="default" name="css/connexion.css"  />
+        <style type="text/css">
+        #footer{
+			  background-color: #DCDCDC;
+			  color: black;
+			  position:fixed;
+			  width: 100%;
+			  bottom: 0;
+			  text-align:center;
+			  height: 1.5em;
+			  font-weight: bold;
+			}
+			body{
+				background-image: url(/images/deco.jpg);
+				background-attachment: fixed;
+				background-repeat: no-repeat;
+			}
+		</style>
+   </h:head>
+   
+   <div id="images">
+	    <p:graphicImage value="/images/logoItac.jpg" width="8%" height="45px" style="float:right" />
+	</div>
+    <h:body >
+      <h:form id="formulaire">
+      
+         <p:fieldset legend="Login" style="margin-bottom:30%">
+         	<f:facet name="#{userBean}"></f:facet>
+	     	<p:outputLabel for="email"> Adresse email <span class="requis"></span></p:outputLabel>
+	        <p:inputText id="email" value="#{userManagedBean.user.email}" required="true" size="20" maxlength="60" />
+	        <p:message id="emailMessage" for="email" errorClass="erreur" label="Email" requiredMessage="#{msg['connexion.email']}" />
+	        <br />
+	
+	        <p:outputLabel for="motdepasse"> Mot de passe <span class="requis"></span></p:outputLabel>
+	        <p:password id="motdepasse" value="#{userManagedBean.user.password}" required="true" size="20" maxlength="20" />
+	        <p:message id="motDePasseMessage" for="motdepasse" errorClass="erreur" label="Mot de passe" requiredMessage="#{msg['connexion.password']}" />
+	        <br/>
+	        
+	        <p:messages globalOnly="true" infoClass="info" />
+	
+	        <h:commandButton value="Connexion" action="#{userManagedBean.connexion}" styleClass="sansLabel" />
+	        
+	        <br/>
+	        
+          </p:fieldset>
+          <p:graphicImage url = "/resources/images/logoItac.jpg" style="margin-top:40%" />
+        </h:form> 
+        <div id="footer">
+        
+          Copyright © 2019 I.T. Africa Consulting. All Rights Reserved. I.T. Africa Consulting
+        </div>
+        
+    </h:body>
+</html>

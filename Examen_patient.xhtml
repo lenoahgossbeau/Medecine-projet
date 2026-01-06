@@ -1,0 +1,109 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head>
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+   <!--  	<f:loadBundle basename=" cm.itac.medecine.bundle.messages_fr" var="msg"/> -->
+      <title>Examen_patient</title> 
+   </h:head> 
+   <h:body> 
+<!--    		<div class="navbar navbar-default navbar-fixed-top" role="navigation"> -->
+<!-- 			<div class="container"> -->
+<!-- 				<section id="sidebar" style="margin:0px"> -->
+<!-- 					<div class="navbar-collapse collapse"> -->
+<!-- 						<ul class="nav navbar-nav navbar-left"> -->
+<!-- 							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li> -->
+<!-- 							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li> -->
+<!-- 							<li><a href="#two">Admin</a></li> -->
+<!-- 							<li><a href="#three">help</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+<!-- 				</section> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	<h:form id="menuForm">
+  
+                        <ui:include src ="Header.xhtml"  />
+   </h:form>
+		<div class="container-fluid" style="margin-top:60px">
+			<h:form id="messages">
+				<p:growl id="mgs" showDetail="true" />
+				<p:fieldset legend="Liste des examens enregistrées">
+			 		<p:dataTable selectionMode="single" selection="#{examen_patientManagedBeanList.selectedExamen}" rowKey="#{examen_patient.id}"
+			 		 var="examen_patient" value="#{examen_patientManagedBeanList.examenList}">
+			 		 <p:ajax event="rowSelect" listener="#{examen_patientManagedBeanList.onRowSelect}" update=":examen" />
+						<p:column headerText="Id de l'examen">
+							<h:outputText value="#{examen_patient.id}" />
+			       		 </p:column>
+			       		 <p:column headerText="Prénom du patient">
+				            <h:outputText value="#{examen_patient.patient.prenom}" />
+				        </p:column>
+				        <p:column headerText="Description de l'examen">
+				            <h:outputText value="#{examen_patient.description}" />
+				        </p:column>
+				        <p:column headerText="Type d'examen">
+				            <h:outputText value="#{examen_patient.type}" />
+				        </p:column>
+				        <p:column headerText="Date de l'examen">
+				            <h:outputText value="#{examen_patient.date_examen}" />
+				        </p:column>
+				        <p:column headerText="Statut">
+				            <h:outputText value="#{examen_patient.statut}" />
+				        </p:column>
+				        <p:column>
+				        	<p:commandButton action="#{examen_patientManagedBeanList.detail(examen_patient)}" value="Details" />
+				        </p:column>
+				        <p:column>
+				        	<p:commandButton action="#{examen_patientManagedBeanList.edit(examen_patient)}" value="Update" />
+				        </p:column>
+				        <p:column>
+				        <p:commandButton action="#{examen_patientManagedBeanList.supprimer(examen_patient)}" value="Delete" >
+				        	<p:confirm header="Confirmation" message="Etes-vous sûre de bien vouloir supprimer cet examen ?" icon="pi pi-exclamation-triangle" update="mgs" />
+				        </p:commandButton>
+				        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				    	</p:confirmDialog>
+				        </p:column> 
+				    </p:dataTable>
+				</p:fieldset>
+			</h:form>
+		</div>
+		<div class="container-fluid" style="margin-top:10px">
+      	<h:form id="examen">
+      			<p:messages globalOnly="true" infoClass="info" />
+		      	<p:fieldset legend="Enregistrer un nouvel examen">
+			         	<p:outputLabel for="listePatient" value="Choix du patient" /><span> </span>
+			        	<p:selectOneMenu name="nomPatient" id="listePatient" value="#{examen_patientManagedBean.examen_patient.patient.id}" style="width:125px"  >
+			             <f:selectItems value = "#{ examen_patientManagedBean.patients.entrySet()}"  var ="patient" filterBy="#{column.property}" itemValue="#{patient.key}" itemLabel="#{patient.value.prenom}" />   
+			        	</p:selectOneMenu>
+			    <br/><br/>
+			    
+			    <p:outputLabel>Description :</p:outputLabel>
+			    <p:inputText value="#{examen_patientManagedBean.examen_patient.description}"/>
+			    <br/><br/>
+			    
+			    <p:outputLabel for="listeSousService" value="Choix du Sous Service" /><span> </span>
+			        	<p:selectOneMenu  name="nomSousService" id="listeSousService" value="#{examen_patientManagedBean.sousServiceSelected}" style="width:125px" >
+			           <p:ajax event="itemSelect" listener="#{examen_patientManagedBean.onSousServiceChange}" update=":examen:multiple"/>
+			            <f:selectItems value = "#{ examen_patientManagedBean.sous_Services.entrySet()}"  var ="sous_Services" filterBy="#{column.property}" itemValue="#{sous_Services.key}" itemLabel="#{sous_Services.value.libelle}" />   
+			        	</p:selectOneMenu>
+			    <br/><br/>
+			    
+			     <h:outputLabel for="multiple" value="Multiple:" />
+        			<p:selectCheckboxMenu id="multiple" value="#{examen_patientManagedBean.selectedTypesExamens}" label="Type Examens" multiple="true" 
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            			<f:selectItems value="#{examen_patientManagedBean.typesExamens.entrySet()}" var ="typesExamens" filterBy="#{column.property}" itemValue="#{typesExamens.key}" itemLabel="#{typesExamens.value.reference}"/>
+        			</p:selectCheckboxMenu>
+			    <br/><br/>
+			    <h:commandButton value="Valider" action="#{examen_patientManagedBean.valid}"/>
+		     </p:fieldset>
+    	</h:form>  
+    </div>
+   </h:body> 
+</html> 

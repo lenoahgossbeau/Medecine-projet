@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="fr"
+	xmlns:p="http://primefaces.org/ui"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+             
+<h:head>
+<title>Editer l'examen</title>
+</h:head>
+	    
+<h:form>
+
+<p:outputLabel>Id:</p:outputLabel>
+<p:inputText value="#{examenManagedBeanList.examen.id}"/>
+                     <br></br>
+
+<p:growl id="growl" showDetail="true" sticky="true" /> 
+          
+         <p:panelGrid columns="1" >
+     
+          <p:outputLabel for="listePatient" value="Choix du Patient" />
+        <p:selectOneMenu name="nom" id="listePatient" 
+        value="#{examenManagedBeanList.clientSelected}" style="width:125px"  >
+             
+             <f:selectItems value = "#{ examenManagedbean.patients.entrySet()}"  
+              var ="examen"  filterBy="#{column.property}"
+               itemValue="#{examen.key}" itemLabel="#{examen.value.nom}" />   
+        </p:selectOneMenu>
+       
+ </p:panelGrid>
+     
+    <br/><br/>
+<p:outputLabel>Prenon du Patient :</p:outputLabel>
+<p:inputText value="#{examenManagedBeanList.examen.prenom}"/>
+                       <br></br>
+<p:outputLabel>Telephone du Patient :</p:outputLabel>
+<p:calendar value="#{examenManagedBeanList.tel}"/>
+
+                          <br></br>
+                          
+<p:outputLabel>Age du Patient :</p:outputLabel>
+<p:inputText value="#{examenManagedBeanList.examen.age}"/>
+                       <br></br>
+<p:outputLabel>Information complementaire du Patient :</p:outputLabel>
+<p:calendar value="#{examenManagedBeanList.information_comp}"/>
+
+                          <br></br>
+<p:outputLabel>Libelle de L'examen:</p:outputLabel>
+<p:inputText value="#{examenManagedBeanList.examen.libelle}"/>
+                       <br></br>
+<p:outputLabel>Type de l'examen :</p:outputLabel>
+<p:calendar value="#{examenManagedBeanList.type}"/>
+
+                          <br></br>
+<p:outputLabel>Date du resultat</p:outputLabel>
+<p:inputText value="#{examenManagedBeanList.examen.date_resultat}"/>
+                       <br></br>
+<p:outputLabel>Medecin</p:outputLabel>
+<p:calendar value="#{examenManagedBeanList.medecin}"/>
+
+                          <br></br>
+
+
+
+<h:commandButton   value="Modifier"  action="#{examenManagedBeanList.modifier()}"/>
+	    
+</h:form>	    
+	    
+	    
+	
+</html>

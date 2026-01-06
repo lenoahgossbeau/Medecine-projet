@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/ecommerce.css" />
+		<meta charset="utf-8" />
+		<title>Type d'examen</title>
+		<style type="text/css">
+        #footer{
+			  background-color: #DCDCDC;
+			  color: black;
+			  position:fixed;
+			  width: 100%;
+			  bottom: 0;
+			  text-align:center;
+			  height: 1.5em;
+			  font-weight: bold;
+		}
+	</style>
+	</head>
+	<body>
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div style="margin-top:60px" class="container">
+			<h:form id="form">
+		    <p:growl id="msgs" showDetail="true"/>
+		 
+		    <p:dataTable id="typeexamenList" widgetVar="typeexamenList" var="typeexamen" value="#{typeExamenManagedBeanList.typeexamenList}" editable="true" style="margin-bottom:20px">
+		        <f:facet name="header">
+		            Liste des types d'examen
+		        </f:facet>
+		 
+		        <p:ajax event="rowEdit" listener="#{typeExamenManagedBeanList.onRowEdit}" update=":form:msgs" />
+		        <p:ajax event="rowEditCancel" listener="#{typeExamenManagedBeanList.onRowCancel}" update=":form:msgs" />
+		 
+		        <p:column headerText="Id">
+		            <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{typeexamen.id}" /></f:facet>
+		                <f:facet name="input"><p:inputText id="modelInput" value="#{typeexamen.id}" style="width:100%"/></f:facet>
+		            </p:cellEditor>
+		        </p:column>
+		 
+		        <p:column headerText="Reférence">
+		            <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{typeexamen.reference}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{typeexamen.reference}" style="width:100%" label="Réference"/></f:facet>
+		            </p:cellEditor>
+		        </p:column>
+		        
+		        <p:column headerText="Prestation">
+		            <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{typeexamen.prestation}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{typeexamen.prestation}" style="width:100%" label="Prestation"/></f:facet>
+		            </p:cellEditor>
+		        </p:column>
+		        
+		        <p:column headerText="Prix">
+		            <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{typeexamen.prix}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{typeexamen.prix}" style="width:100%" label="Prix"/></f:facet>
+		            </p:cellEditor>
+		        </p:column>
+		 
+		        <p:column headerText="Sous-service">
+		            <p:cellEditor>
+		                <f:facet name="output"><h:outputText value="#{typeexamen.sousservice.libelle}" /></f:facet>
+		                <f:facet name="input">
+		                    <h:selectOneMenu value="#{typeexamen.sousservice}" style="width:100%">
+		                        <f:selectItems value="#{typeExamenManagedBean.sousservices.entrySet()}" var="sousservice" itemLabel="#{sousservice.key}" itemValue="#{sousservice.value.libelle}" />
+		                    </h:selectOneMenu>
+		                </f:facet>
+		            </p:cellEditor>
+		        </p:column>
+		 
+		        <p:column style="width:32px">
+		            <p:rowEditor />
+		        </p:column>
+		    </p:dataTable>
+		 
+		     <div class="ui-g">
+		         <div class="ui-g-12">
+		             <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+		                              action="#{typeExamenManagedBeanList.onAddNew}" oncomplete="PF('typeexamenList').addRow();"/>
+		         </div>
+		     </div>
+		 
+		 </h:form>
+	 </div>
+	</body>
+</html>

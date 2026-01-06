@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head> 
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+      <title>Détail du patient</title> 
+   </h:head> 
+   <h:body> 
+   		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-top:60px">
+       
+       	<div class="col-md-4">
+       		<img src="images/logo.jpg"/>
+       	</div>
+       	<h:form id="page">
+       	<div class="col-md-4">
+       		<P /><b>CENTRE MEDICAL</b><BR />
+       		NOTRE DAME DU ROSAIRE<BR />
+       		B.P.: 185/296<BR />
+       		SIMBOK/YAOUNDE
+       	</div>
+    	<p:fieldset legend="Détail sur le patient sélectioné" class="col-md-12">
+	    <p:outputLabel>Prenom :</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.prenom}"/><br/><br/>
+	    
+	    <p:outputLabel>Nom :</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.nom}"/><br/><br/>
+	    
+	    <p:outputLabel>Telephone :</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.telephone}"/><br/><br/>
+	    
+		 <p:outputLabel>Sexe :</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.sexe}"/><br/><br/>
+	    
+	    <p:outputLabel>Age</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.age}"/><br/><br/>
+	    
+		<p:outputLabel>Poids :</p:outputLabel>
+		<p:outputLabel value="#{patientManagedBean.patient.poids}"/><br/><br/>
+		
+		<p:outputLabel>Temperature:</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.temperature}"/><br/><br/>
+	    
+	    <p:outputLabel>Pouls:</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.pouls}"/><br/><br/>
+	    
+    	<p:outputLabel>Tension:</p:outputLabel>
+    	<p:outputLabel value="#{patientManagedBean.patient.tension}"/><br/><br/>
+    	
+		<p:outputLabel>Lieu de residence:</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.lieu_de_residence}"/><br/><br/>
+	    
+	    <p:outputLabel>Statut matrimoniale:</p:outputLabel>
+	    <p:outputLabel value="#{patientManagedBean.patient.statut_matrimoniale}"/><br/><br/>
+	    
+	    <p:outputLabel>Motif de la consultation:</p:outputLabel>
+	    <p:outputLabel  value="#{patientManagedBean.patient.motif_de_la_consultation}" /><br/><br/>
+	    
+	    <p:outputLabel>Medicament pris:</p:outputLabel>
+	    <p:outputLabel  value="#{patientManagedBean.patient.medicament_pris}"/><br/><br/>
+	    
+	    <p:outputLabel>Antecedent:</p:outputLabel><br/>
+	    <p:outputLabel  value="#{patientManagedBean.patient.antecedent}"/><br/><br/>
+	    
+	    <p:outputLabel>Bilan:</p:outputLabel><br/>
+	    <p:outputLabel  value="#{patientManagedBean.patient.bilan}"/><br/><br/>
+	    
+	    <p:outputLabel>Traitement:</p:outputLabel><br/>
+	    <p:outputLabel  value="#{patientManagedBean.patient.traitement}"/><br/><br/>
+	    
+	    </p:fieldset>
+	    <div class="col-md-6">
+	    	<button class="btn btn-primary"><a href="patient.xhtml" style="color: white" >Retour</a></button>
+	    </div>
+	    <div class="col-md-6">
+		    <p:commandButton value="Imprimer" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
+	    		<p:printer target="page" />
+			</p:commandButton>
+		</div>
+    </h:form> 
+    </div>
+   </h:body> 
+</html> 

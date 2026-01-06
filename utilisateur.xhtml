@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head> 
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+      <title>Utilisateur</title> 
+      
+   </h:head> 
+   <h:body> 
+   	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<section id="sidebar" style="margin:0px">
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-left">
+						<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+						<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+						<li><a href="#two">Admin</a></li>
+						<li><a href="#three">help</a></li>
+					</ul>
+				</div>
+			</section>
+		</div>
+	</div>
+   <div class="container-fluid" style="margin-top:60px">
+   	<h:form>
+        <p:fieldset legend="Liste des utilisateurs enregistrées">
+	 		<p:dataTable selectionMode="single" selection="#{utilisateurManagedBeanList.selectedUser}" rowKey="#{user.id}"
+	 		var="user" value="#{utilisateurManagedBeanList.userList}">
+				<p:ajax event="rowSelect" listener="#{utilisateurManagedBeanList.onRowSelect}" update=":user" />
+				<p:column headerText="Id de l'utilisateur">
+	           		 <h:outputText value="#{user.id}" />
+	       		 </p:column>
+		        <p:column headerText="L'Email de l'utilisateur">
+		            <h:outputText value="#{user.email}" />
+		        </p:column>
+		        <p:column headerText="Le mot de pass de l'utilisateur">
+		            <h:outputText value="#{user.password}" />
+		        </p:column>
+		        <p:column headerText="Nom de l'utilisateur">
+		            <h:outputText value="#{user.username}" />
+		        </p:column>
+		        <p:column headerText="Rôle de l'utilisateur">
+		            <h:outputText  value="#{user.role.description}" />
+		        </p:column>
+		         <p:column>
+		        <p:commandButton action="#{utilisateurManagedBeanList.detail(user)}" value="Details" />
+		        </p:column>
+		        <p:column>
+		        <h:commandButton action="#{utilisateurManagedBeanList.edit(user)}" value="Update" />
+		        </p:column>
+		        <p:column>
+		        <p:commandButton action="#{utilisateurManagedBeanList.supprimer(user)}" value="Delete" >
+		        	<p:confirm header="Confirmation" message="Etes-vous sûre de bien vouloir supprimer cet utilisateur ?" icon="pi pi-exclamation-triangle" update="messages" />
+		        </p:commandButton>
+		        
+		        </p:column> 
+	    	</p:dataTable>
+		</p:fieldset>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				    	</p:confirmDialog>
+		</h:form>
+	</div>
+	<div class="container-fluid" style="margin-top:10px">
+	<h:form id="user">
+		<p:messages globalOnly="true" infoClass="info" />
+		     <p:fieldset legend="Enregistrez un nouvel utilisateur">
+		       	<div class="container-fluid">
+		       	<div class="col-md-12">
+				    <p:outputLabel>Adresse Email :</p:outputLabel>
+				    <p:inputText id="Adresse" value="#{inscriptionManagedBean.user.email}" required="true" requiredMessage="#{msg['utilisateur.Adresse']}" />
+				     <p:message id="mail" for="Adresse" errorClass="erreur" label="Adresse Email"/>
+				    <br/><br/>
+				</div>
+				<div class="col-md-6">    
+				    <p:outputLabel>Mot de Passe :</p:outputLabel>
+				    <h:inputSecret id="MotdePasse" value="#{inscriptionManagedBean.user.password}" required="true" requiredMessage="#{msg['utilisateur.MotdePasse']}" />
+				    <p:message id="pasword" for="MotdePasse" errorClass="erreur" label="MotdePasse"/>
+				    <br/><br/>
+				</div>
+				<div class="col-md-6">    
+				    <p:outputLabel>Confirmation du Mot de Passe :</p:outputLabel>
+				    <h:inputSecret id="Confirmation" value="#{inscriptionManagedBean.confirmationPassword}" required="true" requiredMessage="#{msg['utilisateur.Confirmation']}" />
+				     <p:message id="ConfirmationduMotdePasse" for="Confirmation" errorClass="erreur" label="Confirmation du Mot de Passe"/>
+				    <br/><br/>
+				</div>
+				<div class="col-md-6">    
+				    <p:outputLabel>Nom de l'Utilisateur :</p:outputLabel>
+				    <p:inputText id="Nom" value="#{inscriptionManagedBean.user.username}" required="true" requiredMessage="#{msg['utilisateur.Nom']}" />
+				    <br/><br/>
+				</div>    
+				<div class="col-md-6">
+				    
+				     <p:outputLabel for="listeRole" value="Role de l'utilisateur : " /><span> </span>
+				     <p:selectOneMenu name="role" id="listeRole" 
+				        value="#{inscriptionManagedBean.user.role.id}" style="width:125px"  >
+				             <f:selectItems value = "#{ inscriptionManagedBean.roles.entrySet()}"  var ="role" 
+				                             filterBy="#{column.property}"
+				                              itemValue="#{role.key}" itemLabel="#{role.value.description}" />   
+				        </p:selectOneMenu>
+				       
+				    <br/><br/>
+				</div>    
+				   <h:commandButton value="Inscription" action="#{inscriptionManagedBean.inscription}"/>
+				 </div>
+	     	</p:fieldset>
+    	</h:form>
+    </div> 
+   </h:body> 
+</html> 

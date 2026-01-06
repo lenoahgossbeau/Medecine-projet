@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head>
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+   <!--  	<f:loadBundle basename=" cm.itac.medecine.bundle.messages_fr" var="msg"/> -->
+      <title>Liste de resultats</title> 
+   </h:head> 
+   <h:body>
+		<h:form id="menuForm">
+  
+                        <ui:include src ="Header.xhtml"  />
+   		</h:form>
+		<div class="container-fluid" style="margin-top:60px">
+			<h:form id="messages">
+				<p:growl id="mgs" showDetail="true" />
+				<p:fieldset legend="Liste des resultats enregistrées">
+			 		<p:dataTable selectionMode="single" selection="#{resultatsManagedBeanList.selectedResultats}" rowKey="#{resultats.id}"
+			 		 var="resultats" value="#{resultatsManagedBeanList.resultatsList}">
+			 		 <p:ajax event="rowSelect" listener="#{resultatsManagedBeanList.onRowSelect}" update=":messages" />
+						<p:column headerText="Id du resultats">
+							<h:outputText value="#{resultats.id}" />
+			       		 </p:column>
+			       		 <p:column headerText="Id de l'examen">
+				            <h:outputText value="#{resultats.examen.id}" />
+				        </p:column>
+				        <p:column headerText="Libellé">
+				            <h:outputText value="#{resultats.libelle}" />
+				        </p:column>
+				        <p:column headerText="Description">
+				            <h:outputText value="#{resultats.description}" />
+				        </p:column>
+				        <p:column headerText="Date de sortie">
+				            <h:outputText value="#{resultats.date_resultat}" converter="javax.faces.DateTime" />
+				        </p:column>
+				        <p:column>
+				        	<p:commandButton action="#{resultatsManagedBeanList.detail(resultats)}" value="Details" />
+				        </p:column> 
+				    </p:dataTable>
+				</p:fieldset>
+			</h:form>
+		</div>
+	</h:body>
+</html>

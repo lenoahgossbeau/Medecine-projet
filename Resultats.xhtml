@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+	xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head>
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+   <!--  	<f:loadBundle basename=" cm.itac.medecine.bundle.messages_fr" var="msg"/> -->
+      <title>Resultats</title> 
+   </h:head> 
+   <h:body> 
+   		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="container-fluid" style="margin-top:60px">
+			<h:form id="messages">
+				<p:growl id="mgs" showDetail="true" />
+				<p:fieldset legend="Liste des resultats d'examen enregistrées">
+			 		<p:dataTable selectionMode="single" selection="#{resultatsManagedBeanList.selectedResultats}" rowKey="#{resultats.id}"
+			 		 var="resultats" value="#{resultatsManagedBeanList.resultatsList}">
+			 		 <p:ajax event="rowSelect" listener="#{resultatsManagedBeanList.onRowSelect}" update=":resultats" />
+						<p:column headerText="Id du resultat">
+							<h:outputText value="#{resultats.id}" />
+			       		 </p:column>
+			       		 <p:column headerText="Description de l'examen">
+				            <h:outputText value="#{resultats.examen.description}" />
+				        </p:column>
+				        <p:column headerText="Libellé du resultat">
+				            <h:outputText value="#{resultats.description}" />
+				        </p:column>
+				        <p:column headerText="Description du resultat">
+				            <h:outputText value="#{resultats.description}" />
+				        </p:column>
+				        <p:column headerText="Date du resultat">
+				            <h:outputText value="#{resultats.date_resultat}" />
+				        </p:column>
+				         <p:column>
+				        <p:commandButton action="#{resultatsManagedBeanList.detail(resultats)}" value="Details" />
+				        </p:column>
+				        <p:column>
+				        <h:commandButton action="#{resultatsManagedBeanList.edit(resultats)}" value="Update" />
+				        </p:column>
+				        <p:column>
+				        <p:commandButton action="#{resultatsManagedBeanList.supprimer(resultats)}" value="Delete" >
+				        	<p:confirm header="Confirmation" message="Etes-vous sûre de bien vouloir supprimer ce resultat d'examen ?" icon="pi pi-exclamation-triangle" update="mgs" />
+				        </p:commandButton>
+				        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				    	</p:confirmDialog>
+				        </p:column> 
+				    </p:dataTable>
+				</p:fieldset>
+			</h:form>
+		</div>
+		<div class="container-fluid" style="margin-top:10px">
+      	<h:form id="resultats">
+      		<p:messages globalOnly="true" infoClass="info" />
+		      <p:fieldset legend="Enregistrer un nouvel resultat">
+			         	<p:outputLabel for="listeExamen" value="Choix de l'examen" /><span> </span>
+			        	<p:selectOneMenu name="description" id="listeExamen" value="#{resultatsManagedBean.resultats.examen.id}" style="width:125px"  >
+			             <f:selectItems value = "#{ resultatsManagedBean.examens.entrySet()}"  var ="examen" filterBy="#{column.property}" itemValue="#{examen.key}" itemLabel="#{examen.value.description}" />   
+			        	</p:selectOneMenu>
+			    <br/><br/>
+			    <p:outputLabel>Libelle</p:outputLabel>
+			    <p:inputText value="#{resultatsManagedBean.resultats.libelle}"/>
+			    <br/><br/>
+			    <p:outputLabel>Description :</p:outputLabel>
+			    <p:inputText value="#{resultatsManagedBean.resultats.description}"/>
+			    <br/><br/>
+			    <h:commandButton value="Valider" action="#{resultatsManagedBean.valid}"/>
+		     </p:fieldset>
+    	</h:form>  
+    </div>
+   </h:body> 
+</html> 

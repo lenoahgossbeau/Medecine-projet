@@ -1,0 +1,223 @@
+<!DOCTYPE html> 
+<html lang="fr" 
+   xmlns:p="http://primefaces.org/ui"
+   xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:f="http://java.sun.com/jsf/core" 
+   xmlns:h="http://java.sun.com/jsf/html" 
+   xmlns:ui="http://java.sun.com/jsf/facelets"> 
+   <h:head> 
+   	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+      <title>Patient</title> 
+   </h:head> 
+   <h:body> 
+   	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<section id="sidebar" style="margin:0px">
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="/Medecine/MainPage.xhtml">Acceuil</a></li>
+							<li><a href="/Medecine/connexion.xhtml">Deconnexion</a></li>
+							<li><a href="#two">Admin</a></li>
+							<li><a href="#three">help</a></li>
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+	<div class="container-fluid" style="margin-top:60px">
+	<h:form id="form">
+		<p:fieldset legend="Liste des patients enregistrés">
+			<p:growl id="msgs" showDetail="true" />
+ 			<p:dataTable id ="table" frozenColumns="1" selectionMode="single" selection="#{patientManagedBeanList.selectedPatient}" rowKey="#{patient.id}"
+ 			  scrollable="true" scrollWidth="100%" scrollHeight="150" var="patient" value="#{patientManagedBeanList.patientList}" >
+				
+				<p:ajax event="rowSelect" listener="#{patientManagedBeanList.onRowSelect}" update=":patient" />
+				<p:column width="200" headerText="Id du patient">
+		           	<h:outputText value="#{patient.id}" />
+		       	</p:column>
+		        <p:column width="200" headerText="Prénom">
+		            <h:outputText value="#{patient.prenom}" />
+		        </p:column>
+		        <p:column width="200" headerText="Nom">
+		            <h:outputText value="#{patient.nom}" />
+		        </p:column>
+		        <p:column width="200" headerText="Telephone">
+		            <h:outputText value="#{patient.telephone}" />
+		        </p:column>
+		         <p:column width="200" headerText="Sexe">
+		            <h:outputText value="#{patient.sexe}" />
+		        </p:column>
+		        <p:column width="200" headerText="Age">
+		            <h:outputText value="#{patient.age}" />
+		        </p:column>
+		        <p:column width="200" headerText="Poids">
+		            <h:outputText value="#{patient.poids}" />
+		        </p:column>
+		         <p:column width="200" headerText="Température">
+		            <h:outputText value="#{patient.temperature}" />
+		        </p:column>
+		        <p:column width="200" headerText="Pouls">
+		            <h:outputText value="#{patient.pouls}" />
+		        </p:column>
+		        <p:column width="200" headerText="Tension">
+		            <h:outputText value="#{patient.tension}" />
+		        </p:column>
+		        <p:column width="200" headerText="Lieu de resisdence">
+		            <h:outputText value="#{patient.lieu_de_residence}" />
+		        </p:column>
+		         <p:column width="200" headerText="Statut matrimoniale">
+		            <h:outputText value="#{patient.statut_matrimoniale}" />
+		        </p:column>
+		        <p:column width="200" headerText="Motif de Consultation">
+		            <h:outputText value="#{patient.motif_de_la_consultation}" />
+		        </p:column>
+		        <p:column width="200" headerText="Médicaments pris">
+		            <h:outputText value="#{patient.medicament_pris}" />
+		        </p:column>
+		         <p:column width="200" headerText="Antecedent">
+		            <h:outputText value="#{patient.antecedent}" />
+		        </p:column>
+		        <p:column headerText="Bilan">
+		            <h:outputText value="#{patient.bilan}" />
+		        </p:column>
+		        <p:column headerText="Traitement">
+		            <h:outputText value="#{patient.traitement}" />
+		        </p:column>
+		
+		         <p:column width="200">
+		        <p:commandButton action="#{patientManagedBeanList.detail(patient)}" value="Details" />
+		        </p:column>
+		        <p:column width="200">
+		        <h:commandButton action="#{patientManagedBeanList.edit(patient)}" value="Update" />
+		        </p:column>
+		        <p:column width="200">
+		        <p:commandButton action="#{patientManagedBeanList.supprimer(patient)}" value="Delete" >
+		        	<p:confirm header="Confirmation" message="Etes-vous sûre de bien vouloir supprimer ce patient ?" icon="pi pi-exclamation-triangle" update="msgs" />
+		        </p:commandButton>
+		        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					        <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					        <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+		        </p:column>
+       
+		    </p:dataTable>
+		    <h:commandLink>
+		        <p:graphicImage name="images/excel.jpg" />
+		        <p:dataExporter type="xls" target="table" fileName="cars" pageOnly="true"/>
+    		</h:commandLink>
+ 
+		    <h:commandLink>
+		        <p:graphicImage name="images/pdf.jpg" />
+		        <p:dataExporter type="pdf" target="table" fileName="cars" pageOnly="true" />
+		    </h:commandLink>
+			</p:fieldset>
+			
+		</h:form>
+		</div>
+		
+		<div class="container-fluid" style="margin-top:10px">
+	        <h:form id="patient">
+	          <p:messages globalOnly="true" infoClass="info" />  
+		       <p:fieldset legend="Enregistrez un nouveau Patient">
+		       <div class="col-md-4">
+				    <p:outputLabel>Prénom :</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.prenom}"/>
+				    <br/><br/>
+			   </div>
+			   <div class="col-md-4">
+				    <p:outputLabel>Nom :</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.nom}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Telephone :</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.telephone}" placeholder="(+237)" />
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Sexe :</p:outputLabel>
+				    <p:selectOneMenu value="#{patientManagedBean.patient.sexe}" >
+			            <f:selectItem itemLabel="Sexe" itemValue="" />
+			            <f:selectItem itemLabel="Feminin" itemValue="Feminin" />
+			            <f:selectItem itemLabel="Masculin" itemValue="Masculin" />
+	        		</p:selectOneMenu>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Age :</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.age}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Poids :</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.poids}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+			    <p:outputLabel>Temperature:</p:outputLabel>
+			    <p:inputText value="#{patientManagedBean.patient.temperature}"/>
+			    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Pouls:</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.pouls}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+			    	<p:outputLabel>Tension:</p:outputLabel>
+			    	<p:inputText value="#{patientManagedBean.patient.tension}"/>
+			    	<br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Lieu de residence:</p:outputLabel>
+				    <p:inputText value="#{patientManagedBean.patient.lieu_de_residence}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-4">
+				    <p:outputLabel>Statut matrimoniale:</p:outputLabel>
+				    <p:selectOneMenu value="#{patientManagedBean.patient.statut_matrimoniale}" >
+			            <f:selectItem itemLabel="Statut" itemValue="" />
+			            <f:selectItem itemLabel="Célibataire" itemValue="Célibataire" />
+			            <f:selectItem itemLabel="Marié" itemValue="Marié" />
+			            <f:selectItem itemLabel="Divorcé" itemValue="Divorcé" />
+			            <f:selectItem itemLabel="Veuve" itemValue="Veuve" />
+			            <f:selectItem itemLabel="veuf" itemValue="Veuf" />
+			            <f:selectItem itemLabel="Autre" itemValue="Autre" />
+	        		</p:selectOneMenu>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-6">
+				    <p:outputLabel>Motif de la consultation:</p:outputLabel>
+				    <p:inputTextarea rows="12" cols="65" value="#{patientManagedBean.patient.motif_de_la_consultation}" placeholder="Motif de consultation" />
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-6">
+				    <p:outputLabel>Medicament pris:</p:outputLabel>
+				    <p:inputTextarea rows="12" cols="65" value="#{patientManagedBean.patient.medicament_pris}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-6">
+				    <p:outputLabel>Antecedent:</p:outputLabel><br/>
+				    <p:inputTextarea rows="12" cols="65" value="#{patientManagedBean.patient.antecedent}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-6">
+				    <p:outputLabel>Bilan:</p:outputLabel><br/>
+				    <p:inputTextarea rows="12" cols="65" value="#{patientManagedBean.patient.bilan}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-6">
+				    <p:outputLabel>Traitement:</p:outputLabel><br/>
+				    <p:inputTextarea rows="12" cols="65" value="#{patientManagedBean.patient.traitement}"/>
+				    <br/><br/>
+			    </div>
+			    <div class="col-md-12">
+			    	<h:commandButton value="Valider" action="#{patientManagedBean.valid}"/>
+			    </div>
+		     </p:fieldset>
+	    
+	    </h:form> 
+    </div>
+   </h:body> 
+</html> 
